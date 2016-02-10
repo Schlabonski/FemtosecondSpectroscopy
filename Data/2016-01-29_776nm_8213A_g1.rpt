@@ -1,0 +1,41 @@
+ClusterLabVIEW PM-Pump-Probe
+
+
+DATUM
+01/29/16 12:39:38
+
+MESSDATEI
+ 2016-01-21_776nm_8213A_g1.dat
+
+GERÄT: Analog
+Messzeit innere: 500	
+
+METHODE: DELAY I
+Startposition: 0
+Endposition: 30000
+Schrittweite: 50
+Offset: -50.1185
+Totzeit: 300
+
+Lock-In_1 Filter /ms : 30
+Lock-In_1 Roll-off /dB : 12
+Lock-In_1 Sensitivity /V,A : 50E-3
+Lock-In_1 Reserve / dB : normal
+Lock-In_1 Amplification: 1E5
+Lock-In_2 Filter /ms : 30
+Lock-In_2 Roll-off /dB : 12
+Lock-In_2 Sensitivity /V,A : 200E-6
+Lock-In_2 Reserve / dB : normal
+Lock-In_2 Amplification: 1E5
+
+Lock-In Phase /°: 0
+Modulation Frequency: 5kHz
+Monochromator Entrance Slit /µm: -110 
+Monochromator Exit Slit /µm: 10
+Monochromator Wavelength /nm : 774.45
+Chameleon Wavelength (GUI) /nm : 782
+Chameleon Power /mW : 2642
+Chameleon Spektrum: 776
+Temperature Vapor Cell /°C: 59
+
+Annotations:
