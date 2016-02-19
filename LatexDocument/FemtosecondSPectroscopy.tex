@@ -1,12 +1,14 @@
 \documentclass{report}
 
-\usepackage[left=2.5cm,right=2.5cm,top=2cm,bottom=2cm]{geometry}
+\usepackage[left=3cm,right=3.5cm,top=2cm,bottom=2cm]{geometry}
 \usepackage{graphicx}
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{tabularx}
 \usepackage{booktabs}
 \usepackage{multirow}
+\usepackage{tablefootnote}
+\usepackage{float}
 
 \graphicspath{{../Plots/}}
 
@@ -71,45 +73,97 @@ The solutions to the analytical tasks are handed in in handwritten form.
   \end{itemize}
   
 \subsection*{Results}
+\subsubsection*{FWHM of pulses}
+  To determine the FWHM of the two-pulse cross-correlation, first the delay
+  stage was moved to the position of the maximum amplitude of $S^{pm}_{PD}$. Then
+  the delay stage was move until the half of the maximum amplitude was reached.
+  From this we obtained the FWHM as
+  $$\Delta t_{FWHM} = 2 \frac{\Delta d}{c} = 226\,\textrm{fs},  $$
+  where $c$ is the speed of light. Using the same method for the light pulses
+  after the monochromator, we get a FWHM of
+  $$ \Delta t_{FWHM}^{mono} = 41\,\textrm{ps}. $$
+  This broadening is due to a narrowing in the frequency space by the
+  monochromator.
+
+  The spectral FWHM of the laser was measured directly with a spectrometer
+  although the spectrum was not perfectly symmetric. From
+  this we obtained a value of 
+  $$ \Delta \nu = 1.78\,\textrm{THz} $$.
+  From this measurements we can calculate the value of
+  $$\Delta\nu\Delta\t = 0.405$$
+  with is a good approximation to the ideal value of 0.441 for gaussian pulses.
+\subsubsection*{Spectroscopy of Rb}
 For all measured transitions, the full (complex) signal was reconstructed from the data
  by $Z = X + iY$. The obtained signal was then transformed to the frequency
- space using a fast fourier transform (FFT) implemented in \texttt{numpy}. The results for Rb are shown
- in \ref{fig:Rb_fft}. For the single photon transitions we can see one clear
- peak, for the two photon transitions there are three. Note that the small peaks
+ space using a fast fourier transform (FFT) implemented in \texttt{numpy}.  The
+ monochromator wavelenth of 774.45\,nm was transformed to a frequency and added
+ to the frequencies obtained from the FFT. The results for Rb are shown
+ in Fig.~\ref{fig:Rb_fft}. For the first order processes we can see one clear
+ peak, for the fourth order processes there are three. Note that the small peaks
  on the right are the suppressed sine-cosine-mirror images of the peaks on
  the left side.
- \begin{figure}[h]
+ \begin{figure}[H]
    \centering
    \begin{subfigure}[b]{0.45\textwidth}
      \includegraphics[width=\textwidth]{fft_Rb_1gamma.pdf}
-      \caption{Single photon transitions}     
+      \caption{Second order fluorescence signal}     
    \end{subfigure}
    \quad
    \begin{subfigure}[b]{0.45\textwidth}
     \includegraphics[width=\textwidth]{fft_Rb_2gamma.pdf}  
-    \caption{Two photon transitions}
+    \caption{Fourth order fluorescence signal}
    \end{subfigure}
    \caption{FFT of the signals obtained from the spectroscopy of Rb. The
-   monochromator frequency has already been added to the frequency axis.}
+   monochromator frequency has been added to the frequency axis.}
    \label{fig:Rb_fft}
  \end{figure}
- The results from the FFT analysis are shown in the table below.
- \begin{table}[h]
+ The results from the FFT analysis are shown in the table below. The transition
+ $5S_{1/2} \rightarrow 5P_{3/2}$ was identified in the single photon transition
+ signal. The obtained wavelength is in good accordance with the value from the
+ NIST databank. In the fourth order signal, the middle peak could be identified with the 
+$5S_{1/2} \rightarrow 5D_{3(5)/2}$ transition. The leftmost peak in the fourth order spectrum
+has half the wavelength of the $5S_{1/2} \rightarrow 5P_{3/2}$ transition, it
+is thus probably a second harmonic of it. The third peak could not be assigned
+to a known transition in the spectrum of Rb. The differences in amplitude of the
+peaks can be explained by the prefactors of the fluorescence signals $S_F$.
+Different transition moments $\mu$ will result in different amplitudes of the
+peaks in the fourier spectrum as they do not change under
+transformation.
+ \begin{table}[H]
    \centering
    \caption{Results obtained from the FFT analysis of the Rb signals}
    \label{tab:Rb_results}
    \begin{tabular}{ccccccc}
       \toprule
-      & & $\nu$ / THz  & $\lambda$ / nm  & $\lambda_{Theo}$  & Transition\\
+      & & $\nu$ / THz  & $\lambda$ / nm  & $\lambda_{Theo}$\tablefootnote{Values taken
+    from NIST Databank \texttt{http://www.nist.gov/pml/data/asd.cfm}}  & Transition\\
       \midrule
       1$\gamma$ & Peak 1  & 384.24 & 780.21  & 780.24 &
       $5S_{1/2} \rightarrow 5P_{3/2} $\\
       \midrule
-      \multirow{3}{*}{2$\gamma$} & Peak 1 & 768.45 & 390.12 &  & \\
+      \multirow{3}{*}{2$\gamma$} & Peak 1 & 768.45 & 390.12 & 390.12 & $5S_{1/2}
+      \rightarrow 5P_{3/2}$ (SHG)\\
                                  & Peak 2 & 770.58  & 389.04 & 389.05 (389.09) &
       $5S_{1/2} \rightarrow 5D_{3(5)/2}$\\
                                  & Peak 3 & 771.34 & 388.66 & - & \\
       \bottomrule
   \end{tabular}
  \end{table}
+\subsubsection*{Spectroscopy of Cs}
+ For the analysis of the $6S_{1/2} \rightarrow 8S_{1/2}$ transition of Cs, the
+ fourth order signal at a monochromator wavelength of 822.33\,nm was treated
+ similarily to the analysis of the Rb spectrum. The FFT of the signal showed one
+ clear peak at a frequency of $\nu_{Cs}=729.22$\,THz (see Fig.~\ref{fig:Cs_fft}). This corresponds to a
+ wavelength of 
+ $$\lambda_{Cs} =  411.10\,\textrm{nm},$$
+ a value that is in good accordance with the value from the NIST databank of
+ $\lambda_{theo}^{Cs} = 411.23\,\textrm{nm}$ for the $6S_{1/2} \rightarrow
+ 8S_{1/2}$ transition. 
+ \begin{figure}[H] 
+   \centering
+     \includegraphics[width=0.9\textwidth]{fft_Cs_2gamma.pdf}
+     \caption{FFT of the fourth order fluorescence signal of Cs. The
+     monochromator frequency is added to the frequency axis.}
+     \label{fig:Cs_fft}
+ \end{figure}
 \end{document}
