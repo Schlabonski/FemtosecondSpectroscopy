@@ -1,0 +1,115 @@
+\documentclass{report}
+
+\usepackage[left=2.5cm,right=2.5cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{multirow}
+
+\graphicspath{{../Plots/}}
+
+\begin{document}
+\renewcommand{\arraystretch}{1.5}
+
+\pagenumbering{arabic}
+\begin{flushright}
+  \today
+\end{flushright}
+
+\begin{center}
+  \huge Advanced Atomic and Molecular Physics\\ 
+  \Large Lab course "Femtosecond Spectroscopy"\\
+\end{center}
+
+\begin{flushleft} 
+  \large Erstellt von: Lukas Elflein, Fabian Thielemann, Lukas G\"otz, Chiara
+  Lindner\\
+\end{flushleft}
+
+The solutions to the analytical tasks are handed in in handwritten form.
+
+\subsection*{Answers to questions}
+  \begin{itemize}
+    \item Measuring the fluorescence light perpendicular to the laser beam
+      reduces direct light, which results in a
+      better signal to noise ratio.
+
+    \item The FWHM of the two-pulse cross-correlation 
+      becomes (see calculations)
+      $$ \Delta t_{AC} = \Delta t$$
+
+    \item For constant inter pulse delay $\tau$ the two-pulse
+      cross-correlation becomes
+      $$ S^{pm}_{PD} \propto \underbrace{e^{-4\ln2\left(\frac{\tau}{\Delta
+        t_{AC}}\right)}}_{cst.} \cos(\underbrace{\omega_L
+      \tau}_{cst.}  - \Omega_{21}T_m )$$
+      so for the given frequencies the cosine with angular frequency 5\,kHz
+      will be screened with a frequency of 80\,MHz. Changing $\tau$ will
+      change the amplitude as well as the phase of the cosine.
+
+    \item Higher order perturbation calculation describe higher numbers of
+      photons involved in the transition. $S^{(2)}_F$ describes single photon
+
+      transitions, $S^{(4)}_F$ describes two photon transitions.
+    \item The fluorescence signals of $S^{(2)}_F$ and $S^{(4)_F}$ can be
+      distinguished by their modulation frequencies which are $\Omega_{21}$
+      and $2\Omega_{21}$ respectively
+
+    \item The demodulated signal will be a sinoidal oscillation with angular
+      frequency $\omega_{eg} - \omega_M$ in the case of single photon
+      transitions
+      
+    \item The reference signal for the 4th order signal would need to be
+      modulated with the frequency $2 \Omega_{21}$. This could be obtained by
+      frequency doubling of the reference signal of the 2nd order process.
+
+    \item Using the AOMs combined with the lock-in amplifier one can select
+      the order of the monitored interaction. In this way the measured signal
+      consists of less superposed frequencies and can be analysed more easily.
+  \end{itemize}
+  
+\subsection*{Results}
+For all measured transitions, the full (complex) signal was reconstructed from the data
+ by $Z = X + iY$. The obtained signal was then transformed to the frequency
+ space using a fast fourier transform (FFT) implemented in \texttt{numpy}. The results for Rb are shown
+ in \ref{fig:Rb_fft}. For the single photon transitions we can see one clear
+ peak, for the two photon transitions there are three. Note that the small peaks
+ on the right are the suppressed sine-cosine-mirror images of the peaks on
+ the left side.
+ \begin{figure}[h]
+   \centering
+   \begin{subfigure}[b]{0.45\textwidth}
+     \includegraphics[width=\textwidth]{fft_Rb_1gamma.pdf}
+      \caption{Single photon transitions}     
+   \end{subfigure}
+   \quad
+   \begin{subfigure}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{fft_Rb_2gamma.pdf}  
+    \caption{Two photon transitions}
+   \end{subfigure}
+   \caption{FFT of the signals obtained from the spectroscopy of Rb. The
+   monochromator frequency has already been added to the frequency axis.}
+   \label{fig:Rb_fft}
+ \end{figure}
+ The results from the FFT analysis are shown in the table below.
+ \begin{table}[h]
+   \centering
+   \caption{Results obtained from the FFT analysis of the Rb signals}
+   \label{tab:Rb_results}
+   \begin{tabular}{ccccccc}
+      \toprule
+      & & $\nu$ / THz  & $\lambda$ / nm  & $\lambda_{Theo}$  & Transition\\
+      \midrule
+      1$\gamma$ & Peak 1  & 384.24 & 780.21  & 780.24 &
+      $5S_{1/2} \rightarrow 5P_{3/2} $\\
+      \midrule
+      \multirow{3}{*}{2$\gamma$} & Peak 1 & 768.45 & 390.12 &  & \\
+                                 & Peak 2 & 770.58  & 389.04 & 389.05 (389.09) &
+      $5S_{1/2} \rightarrow 5D_{3(5)/2}$\\
+                                 & Peak 3 & 771.34 & 388.66 & - & \\
+      \bottomrule
+  \end{tabular}
+ \end{table}
+\end{document}
